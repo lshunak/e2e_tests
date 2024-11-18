@@ -14,15 +14,11 @@ Steps:
 
 1. Clone the repository to your local machine and change directory to it.
 
- 2. Install Dependencies:
+2 . Install Dependencies:
     
       npm install
     
-4. Install Playwright Browsers:
-   
-   npx playwright install --with-deps
-
-6. Run Test
+3. Run Test
    
       npx playwright test
 
