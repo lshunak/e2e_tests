@@ -1,31 +1,31 @@
-name: Daily CI Job
+name: CI Workflow
 
 on:
-  schedule:
-    - cron: '0 0 * * *' # This runs the job once a day at midnight UTC
-  workflow_dispatch: # Allows manual triggering of the workflow
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
+  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
 
     steps:
       # Checkout the repository
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      # Set up Node.js (if you're using it)
+      # Set up Node.js (use the desired version, here we use v16)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16' # specify the node version you want to use
+          node-version: '16'
 
-      # Install dependencies (if using Node.js and npm)
+      # Install dependencies
       - name: Install Dependencies
         run: npm install
 
-      # Run tests (you can replace this with whatever test command you use)
+      # Run tests (replace with your actual test command if different)
       - name: Run Tests
-        run: npm test
+        run: npx playwright test
 
-      # Optionally, you can add more steps like linting or deployment
