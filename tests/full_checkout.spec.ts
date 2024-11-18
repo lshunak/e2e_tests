@@ -93,9 +93,38 @@ test('e 2 e flow', async ({ page }) => {
            
             expect(orderNumber).toBeDefined();
             
-            
 
-    }
+            console.log('Navigating to the orders page');
+            const ordersLink = page.locator('a[href="/orders"]');
+            await ordersLink.click();
+        
+            // Verify the order
+            console.log(`Verifying order ${orderNumber} details`);
+
+            const orderHeadingSelector = `h2:has-text("Order ${orderNumber} to ${shippingAddress}")`;
+            const orderHeading = page.locator(orderHeadingSelector);
+            await expect(orderHeading).toBeVisible({ timeout: 5000 });
+        
+            const products = [
+              { name: 'Product 1', quantity: 3 },
+              { name: 'Product 4', quantity: 2 }
+            ];
+
+            for (const product of products) {
+                const orderItemSelector = `h2:has-text("Order ${orderNumber} to ${shippingAddress}") + ul > li:has-text("${product.name} -")`;
+                const orderItem = page.locator(orderItemSelector);
+                await expect(orderItem).toBeVisible({ timeout: 5000 });
+          
+                const textContent = await orderItem.textContent();
+                if (!textContent?.includes(`Quantity: ${product.quantity}`)) {
+                  throw new Error(
+                    `Expected quantity ${product.quantity} for "${product.name}", but found different quantity.`
+                  );
+                }
+                console.log(`Product Verified: ${product.name}, Quantity: ${product.quantity}`);
+              }
+
+            }
     catch (error) {
         console.error("Test failed during the process:", error.message);
 
