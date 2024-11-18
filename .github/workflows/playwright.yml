@@ -1,35 +1,42 @@
-name: CI Workflow
+name: Run Playwright Tests
 
 on:
   push:
     branches:
-      - main  # Trigger on push to the main branch
-  workflow_dispatch:  # Allows manual triggering of the workflow
+      - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+  test:
+    runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      # Set up Node.js (use the desired version, here we use v16)
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'  # Specify the Node.js version you need
 
-      # Install dependencies
-      - name: Install Dependencies
-        run: npm install
+    - name: Install dependencies
+      run: |
+        npm install
+        npx playwright install  # Ensure all necessary browser binaries are installed
 
-      # Install Playwright Browsers
-      - name: Install Playwright Browsers
-        run: npx playwright install
+    - name: Install system dependencies for Playwright
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          libwoff2dec1 \
+          libvpx6 \
+          libevent-2.1-7 \
+          libopus0 \
+          libgstreamer-plugins-base1.0-0 \
+          libgstreamer1.0-0 \
+          libflite1 \
+          libx264-152 \
+          libgles2 \
+          libharfbuzz0b
 
-      # Run tests (replace with your actual test command if different)
-      - name: Run Tests
-        run: npx playwright test
-
+    - name: Run Playwright tests
+      run: npx playwright test
