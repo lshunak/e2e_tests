@@ -12,17 +12,10 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:
-        node-version: '16.x'
-    - name: Install missing dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y \
-          libwoff1 \
-          libvpx6 \
-          libx264-dev
+        node-version: lts/*
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
