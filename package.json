@@ -2,16 +2,19 @@
   "name": "legit_e2e_tests",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test",
+    "postinstall": "npx playwright install --with-deps"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "dotenv": "^16.0.0"
+    "dotenv": "^16.0.0",
+    "@playwright/test": "^1.48.2"
   },
   "devDependencies": {
-    "@playwright/test": "^1.48.2",
     "@types/node": "^22.9.0"
   }
 }
