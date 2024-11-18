@@ -89,14 +89,7 @@ test('e 2 e flow', async ({ page }) => {
            
             expect(orderNumber).toBeDefined();
             
-
-            const orderLocator = page.locator(`h2:has-text("${orderNumber}")`);
-            const count = await orderLocator.count();
-            console.log(`Order count: ${count}`);
-            if (count === 0) {
-                console.log('Order not found yet.');
-            }
-
+            
 
     }
     catch (error) {
