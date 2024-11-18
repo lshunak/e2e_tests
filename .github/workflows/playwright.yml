@@ -19,8 +19,8 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y \
-          libwoff2-1 \
-          libvpx5 \
+          libwoff1 \
+          libvpx6 \
           libx264-dev
     - name: Install dependencies
       run: npm ci
