@@ -3,40 +3,50 @@ name: Run Playwright Tests
 on:
   push:
     branches:
+      - main  # Adjust this as per your branch name
+  pull_request:
+    branches:
       - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'  # Specify the Node.js version you need
+      # Set up Node.js (if you're using a specific version)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Adjust the Node.js version if necessary
 
-    - name: Install dependencies
-      run: |
-        npm install
-        npx playwright install  # Ensure all necessary browser binaries are installed
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          npm ci  # Or npm install if you're not using a lock file
 
-    - name: Install system dependencies for Playwright
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y \
-          libwoff2dec1 \
-          libvpx6 \
-          libevent-2.1-7 \
-          libopus0 \
-          libgstreamer-plugins-base1.0-0 \
-          libgstreamer1.0-0 \
-          libflite1 \
-          libx264-152 \
-          libgles2 \
-          libharfbuzz0b
+      # Install required dependencies for Playwright (specific to Ubuntu)
+      - name: Install Playwright dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwoff2dec1 \
+            libvpx5 \
+            libevent-2.1-6 \
+            libopus0 \
+            libgstreamer-plugins-base1.0-0 \
+            libgstreamer1.0-0 \
+            libharfbuzz0b \
+            libmanette0 \
+            libflite1 \
+            libx264-152 \
+            libgles2-mesa
 
-    - name: Run Playwright tests
-      run: npx playwright test
+      # Install Playwright browsers
+      - name: Install Playwright browsers
+        run: npx playwright install
+
+      # Run tests
+      - name: Run Playwright tests
+        run: npx playwright test
