@@ -9,13 +9,42 @@ Node.js: Version 14 or higher. You can download it from Node.js official website
 
 Steps:
 
-1. Clone the repository to your local machine and change directory to it.
+1. Clone the repository to your local machine and change directory to it:
+      git clone https://github.com/lshunak/e2e_tests.git
+      cd e2e_tests
+
 
 2 . Install Dependencies:
     
       npm install
-    
-3. Run Test
+
+3. Install Playwright Browsers:
+
+      npx playwright install
+
+4. Run Test
    
       npx playwright test
 
+Note:
+If Playwright asks to install browsers, run:
+
+      npx playwright install --with-deps
+
+
+Troubleshooting
+If you encounter issues during the npm install, refer to these tips:
+
+Clear npm cache:
+
+      npm cache clean --force
+
+Ensure correct Node.js and npm versions:
+Verify by running:
+
+      node --version
+      npm --version
+
+Permission issues:
+Reset npm's default directory:
+      sudo chown -R $USER:$GROUP ~/.npm
