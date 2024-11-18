@@ -47,4 +47,5 @@ Verify by running:
 
 Permission issues:
 Reset npm's default directory:
+
       sudo chown -R $USER:$GROUP ~/.npm
