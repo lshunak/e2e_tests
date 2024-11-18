@@ -18,11 +18,11 @@ Steps:
     
       npm install
 
-3. Install Playwright Browsers:
+3. Install Playwright Browsers, run:
 
       npx playwright install
 
-4. Run Test
+4. Run Test:
    
       npx playwright test
 
