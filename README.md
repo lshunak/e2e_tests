@@ -13,9 +13,8 @@ Steps:
       git clone https://github.com/lshunak/e2e_tests.git
       cd e2e_tests
 
-
 2 . Install Dependencies:
-    
+
       npm install
 
 3. Install Playwright Browsers, run:
