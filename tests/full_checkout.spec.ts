@@ -1,20 +1,24 @@
+require('dotenv').config();
 const { test, expect } = require('@playwright/test');
-
 test('e 2 e flow', async ({ page }) => {
 
     try {
+            const appUrl = process.env.APP_URL;
+            const username = process.env.USERNAME;
+            const password = process.env.PASSWORD;
+            const shippingAddress = process.env.SHIPPING_ADDRESS;
 
             // Go to the main page of the app
             console.log('Going to the main page of the app');
-            await page.goto('https://main.d2t1pk7fjag8u6.amplifyapp.com/');
+            await page.goto(appUrl);
         
             //Sign in
             console.log('Signing in');
             await page.waitForSelector('input[name="username"]');
             await page.waitForSelector('input[name="password"]');
             
-            await page.fill('input[name="username"]', 'liranshunak@gmail.com');
-            await page.fill('input[name="password"]', 'LiranShunak1!');
+            await page.fill('input[name="username"]', username);
+            await page.fill('input[name="password"]', password);
             
             await page.click('button[type="submit"]');
         
@@ -61,7 +65,7 @@ test('e 2 e flow', async ({ page }) => {
             const addressBox = page.locator('input[id="shipping-address-text"]');
             await addressBox.waitFor({ state: 'visible' });
             
-            await addressBox.fill('Rehovot 1, Tel Aviv');
+            await addressBox.fill(shippingAddress);
             
             let orderNumber;
         
